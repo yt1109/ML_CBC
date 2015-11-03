@@ -1,3 +1,3 @@
-function[majorityValue] = MajortiyValue(values)
+function[majorityValue] = MajorityValue(values)
     majorityValue = mode(values);
 end

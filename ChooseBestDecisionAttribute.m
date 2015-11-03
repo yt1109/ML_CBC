@@ -1,11 +1,10 @@
-function[bestAttribute] = ChooesBestDecisionAttribute(examples, attributes, binaryTargets)
-%CHOOESBESTDECISIONATTRIBUTE Summary of this function goes here
-%   Detailed explanation goes here
+function[bestAttribute] = ChooseBestDecisionAttribute(examples, attributes, binaryTargets)
+%returns attribute that maximises information gain
 
     CurrentAttribute.a = attributes(1);
     CurrentAttribute.iG = -Inf;
     
-    
+    %steps through all attritbutes
     for attribute = attributes
         
         p0 = 0;
@@ -13,8 +12,11 @@ function[bestAttribute] = ChooesBestDecisionAttribute(examples, attributes, bina
         p1 = 0;
         n1 = 0;
         
+        %steps through each row of each attribute and compare against
+        %example outcome
         for i = 1: size(examples, 1)
             
+            %value of attribute at example 'i'. value = 1 | 0
             attributeValue = examples(i, attribute);
             
             if binaryTargets(i) == 1
@@ -45,7 +47,8 @@ function[bestAttribute] = ChooesBestDecisionAttribute(examples, attributes, bina
         
 end
 
-
+%helper functions to calculate information gain given the postives and
+%negatives compred against the example result
 function[informationGain] = InformationGain(p0,  n0, p1, n1)
     informationGain = I(p0 + p1, n0 + n1) - Remainder(p0, n0, p1, n1);
 end
