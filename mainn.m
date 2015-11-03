@@ -13,9 +13,10 @@ end
 
 trees = cell(1, 6);
 for i=1:6
-    targetVector = targets{i}(1:size(targets{i}, 1));
+    targetVector = bTargets{i}(1:size(bTargets{i}, 1));
     trees{i} = Learning(cleanData.x, 1:1:45, targetVector);
     DrawDecisionTree(trees{i});
+    %fn_structdisp(trees{i});
 end
 
 

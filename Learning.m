@@ -1,20 +1,27 @@
 function [tree] = Learning(examples, attributes, binaryTargets)
-%DecisionTreeLearning Trains a decision tree using given examples
-
+%
 if range(binaryTargets) == 0 
-   tree.class = binaryFeatures(1);
+   tree.class = binaryTargets(1);
    tree.kids = cell(0);   
-elseif size(attributes) == 0
+elseif isempty(attributes)
    tree.class = MajorityValue(binaryTargets);
    tree.kids = cell(0);
 else
    bestAttribute = ChooseBestDecisionAttribute(examples, attributes, binaryTargets);
-   tree.op = emolab2str(bestAttribute);
+   bestAttributeIndex = 0;
+
+    for i=1:size(attributes, 2)
+       if attributes(i) == bestAttribute
+           bestAttributeIndex = i;
+       end
+    end
+   tree.op = bestAttributeIndex;
+   kids = cell(0);
    for i = 0:1
        examplesI = [];
        bTargetsI = [];
        for j = 1:size(examples,1)
-           if examples(j,bestAttribute) == i
+           if examples(j,bestAttributeIndex) == i
                examplesI = [examplesI;examples(j, :)];
                bTargetsI = [bTargetsI;binaryTargets(j)];
            end
@@ -23,7 +30,10 @@ else
            tree.class = MajorityValue(binaryTargets);
            tree.kids = cell(0);
        else
-           tree.kids{i} = Learning(examplesI, attributes(attributes~=bestAttribute), bTargetsI);
+           kid = Learning(examplesI, attributes(attributes~=bestAttribute), bTargetsI);
+           kids{size(kids, 1) + 1} = kid;
        end
    end
+   tree.kids = kids;
+end
 end
