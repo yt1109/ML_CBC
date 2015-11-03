@@ -1,39 +1,33 @@
-%{
-for idx = 1:numel(y)
-    disp(emolab2str(y(idx)));
+cleanData = load('cleandata_students.mat');
+
+% Create 6 binary targets
+bTargets = cell(6);
+for i = 1:6
+    bTargets{i} = zeros(size(cleanData.y));
+    for j = 1:size(cleanData.y)
+        bTargets{i}(j) = cleanData.y(j) == i;
+    end
 end
-function y = MAJORITYVALUE(binary_targets)
+
+% Train and draw a tree for each emotion
+
+trees = cell(1, 6);
+for i=1:6
+    targetVector = targets{i}(1:size(targets{i}, 1));
+    trees{i} = Learning(cleanData.x, 1:1:45, targetVector);
+    DrawDecisionTree(trees{i});
+end
 
 
 
+%{
+    save('TrainedTrees', trees);
 
-function y = CHOOSEBESTDECISIONATTRIBUTE(examples,attributes, binary_targets)
-
-
-
-function y = DECISIONTREELEARNING(examples,attributes,binary_targets)
-    if then
-        //sth
-    else if
-            // sth
-        else
-                //
-                
-       return tree
-
-
-
-cleandata = load('cleandata_students.mat');
-%}
 leaf.class= 0;
 leaf.kids = cell(0);
-%leaf.op = '';
 leaf2.class= 0;
 leaf2.kids = cell(0);
-%leaf2.op = '';
-%treeL = struct('op',[],'kids',[],'class',0); % a leaf
-%treeR = struct('op',[],'kids',[],'class',1); % a leaf
 tree.op = 'node';
 tree.kids = {leaf, leaf2}; %a node with two leaves
-%tree.class = ;
 DrawDecisionTree(tree,'sample');
+%}
