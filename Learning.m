@@ -8,13 +8,11 @@ elseif isempty(attributes)
    tree.kids = cell(0);
 else
    bestAttribute = ChooseBestDecisionAttribute(examples, attributes, binaryTargets);
-   bestAttributeIndex = 0;
+   disp(bestAttribute);
+   bestAttributeIndex = bestAttribute;
 
-    for i=1:size(attributes, 2)
-       if attributes(i) == bestAttribute
-           bestAttributeIndex = i;
-       end
-    end
+  
+    %disp(bestAttributeIndex);
    tree.op = bestAttributeIndex;
    kids = cell(0);
    for i = 0:1
@@ -28,7 +26,6 @@ else
        end
        if isempty(examplesI)
            tree.class = MajorityValue(binaryTargets);
-           tree.kids = cell(0);
        else
            kid = Learning(examplesI, attributes(attributes~=bestAttribute), bTargetsI);
            kids{size(kids, 1) + 1} = kid;
