@@ -1,6 +1,6 @@
 cleanData = load('cleandata_students.mat');
 
-CrossValidate(cleandata.x, cleandata.y)
+CrossValidate(cleanData.x, cleanData.y)
 
 % Create 6 binary targets
 bTargets = cell(6);
@@ -17,8 +17,10 @@ trees = cell(1, 6);
 for i=1:6
     targetVector = bTargets{i}(1:size(bTargets{i}, 1));
     trees{i} = Learning(cleanData.x, 1:1:45, targetVector);
-    DrawDecisionTree(trees{i});
+   % DrawDecisionTree(trees{i});
     
 end
 
 %save('TrainedTrees', trees);
+
+predictions = TestTrees(trees, cleanData.x);
