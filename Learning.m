@@ -9,7 +9,6 @@ elseif isempty(attributes)
 else
    % Get best attribute to split on
    bestAttribute = ChooseBestDecisionAttribute(examples, attributes, binaryTargets);
-   disp(bestAttribute);
    bestAttributeIndex = bestAttribute;
 
    % Split on this attribute

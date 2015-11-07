@@ -2,26 +2,36 @@ function [predictions] = TestTrees( T, x2 )
 %TESTTREES: returns a vector of predicted labels for each example
 %T: a cell of 6 binary tree structures, which are the trained trees.
 %x2: matrix of examples with 45 features
-    %1. for each example, use 6 trees to predicte, and choose the majority
-    % predicted label.
-    %2. 
-    predictions = cell(size(x2, 1),1); % predicted labels for all examples
-    eachByTrees = cell(size(T,2),1);     % predicted labels for each example
+
+    predictions = cell(0);
+    
+    % Classifications for each example
+    classifications = cell(size(x2, 1), size(T, 2));
+    
     for i = 1: size(x2, 1)
         for j = 1: size(T, 2)
-            eachByTrees{j} = withOneTree(T{j}, x2(i,:));
+            classifications{i}{j} = getClassification(T{j}, x2(i,:));
         end
-            predictions{i} = mode(eachByTrees);
+    end
+    
+    % Combine classifications from all emotions to one emotion
+    
+    % ONE METHOD: Just choose first positive classification
+    for i = 1: size(x2, 1)
+        for j = 1: size(T, 2)
+            if (classifications{i}{j} == 1)
+               predictions{i} = emolab2str(j);
+            end
+        end
     end
 end
 
-function [predict] = withOneTree ( tree, x ) 
+function [predict] = getClassification(tree, x) 
  % withOneTree: classify an example with a single trained tree.
  % T: trained tree, a binary sturcture.
  % x: example given, a 45 x 1 vector.
    currentnode = tree;
    while size(currentnode.kids, 1) ~= 0  
-       disp(x);
        if x(currentnode.op) == 0
            currentnode = currentnode.kids{1};
        else
