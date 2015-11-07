@@ -5,7 +5,7 @@ function [predictions] = TestTrees( T, x2 )
 
     predictions = cell(0);
     
-    % Classifications for each example
+    % Get classifications for each example using tree
     classifications = cell(size(x2, 1), size(T, 2));
     
     for i = 1: size(x2, 1)
@@ -14,20 +14,34 @@ function [predictions] = TestTrees( T, x2 )
         end
     end
     
-    % Combine classifications from all emotions to one emotion
-    
-    % ONE METHOD: Just choose first positive classification
+    % Choose classification to use
     for i = 1: size(x2, 1)
+        currentClassification = classifications{i}{1};
+        currentClassificationIndex = 1;
         for j = 1: size(T, 2)
-            if (classifications{i}{j} == 1)
-               predictions{i} = emolab2str(j);
+            if (currentClassification.class == 1)
+               % If we have a positive classification, replace it if we
+               % find a stronger positive classification
+               if (classifications{i}{j}.class == 1 && currentClassification.strength < classifications{i}{j}.strength)
+                  currentClassification = classifications{i}{j}
+                  currentClassificationIndex = j;
+               end
+            else
+               % If we have a negitive classification, replace it if we find a 
+               % positive classification or a weaker negative classification
+               if (classifications{i}{j}.class == 1 || ...
+                  (classifications{i}{j}.class == 0 && classifications{i}{j}.strength < currentClassification.strength))
+                  currentClassification = classifications{i}{j}
+                  currentClassificationIndex = j;
+               end
             end
         end
+        predictions{i} = emolab2str(currentClassificationIndex);
     end
 end
 
 function [predict] = getClassification(tree, x) 
- % withOneTree: classify an example with a single trained tree.
+ % getClassification: classify an example with a single trained tree.
  % T: trained tree, a binary sturcture.
  % x: example given, a 45 x 1 vector.
    currentnode = tree;
@@ -38,5 +52,11 @@ function [predict] = getClassification(tree, x)
            currentnode = currentnode.kids{2};
        end
    end
-   predict = currentnode.class;
+   % Penalise those nodes which are far down within the tree
+   predict = Classification(currentnode.class, -currentnode.level);
+end
+
+function [classification] = Classification(class, strength)
+   classification.class = class;
+   classification.strength = strength;
 end
