@@ -9,9 +9,9 @@ function [predictions] = TestTrees( T, x2 )
     eachByTrees = cell(size(T,2),1);     % predicted labels for each example
     for i = 1: size(x2, 1)
         for j = 1: size(T, 2)
-            eachByTrees(j) = withOneTree(T(j), x2(i,:));
+            eachByTrees{j} = withOneTree(T{j}, x2(i,:));
         end
-            predictions(i) = mode(eachByTrees);
+            predictions{i} = mode(eachByTrees);
     end
 end
 
@@ -23,8 +23,8 @@ function [predict] = withOneTree ( tree, x )
    while size(currentnode.kids, 1) ~= 0  
        disp(x);
        if x(currentnode.op) == 0
-             currentnode = currentnode.kids{1};
-       else 
+           currentnode = currentnode.kids{1};
+       else
            currentnode = currentnode.kids{2};
        end
    end

@@ -13,12 +13,11 @@ end
 
 % Train and draw a tree for each emotion
 
-trees = cell(1, 6);
+trees = cell(0);
 for i=1:6
     targetVector = bTargets{i}(1:size(bTargets{i}, 1));
     trees{i} = Learning(cleanData.x, 1:1:45, targetVector);
-   % DrawDecisionTree(trees{i});
-    
+   % DrawDecisionTree(trees{i});  
 end
 
 %save('TrainedTrees', trees);
