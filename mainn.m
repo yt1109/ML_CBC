@@ -1,6 +1,8 @@
 cleanData = load('cleandata_students.mat');
+noisyData = load('noisydata_students.mat');
 
-CrossValidate(cleanData.x, cleanData.y)
+CleanClassificationResults = CrossValidate(cleanData.x, cleanData.y);
+%NoisyClassificationResults = CrossValidate(noisyData.x, noisyData.y);
 
 % Create 6 binary targets
 bTargets = cell(6);
@@ -23,4 +25,4 @@ end
 %save('TrainedTrees', trees);
 
 predictions = TestTrees(trees, cleanData.x);
-disp(predictions)
+%disp(predictions)

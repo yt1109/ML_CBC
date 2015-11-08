@@ -3,7 +3,8 @@ function [predictions] = TestTrees( T, x2 )
 %T: a cell of 6 binary tree structures, which are the trained trees.
 %x2: matrix of examples with 45 features
 
-    predictions = cell(0);
+    predictions = double(1004);
+    %predictions = zeros(0);
     
     % Get classifications for each example using tree
     classifications = cell(size(x2, 1), size(T, 2));
@@ -31,12 +32,13 @@ function [predictions] = TestTrees( T, x2 )
                % positive classification or a weaker negative classification
                if (classifications{i}{j}.class == 1 || ...
                   (classifications{i}{j}.class == 0 && classifications{i}{j}.strength < currentClassification.strength))
-                  currentClassification = classifications{i}{j}
+                  currentClassification = classifications{i}{j};
                   currentClassificationIndex = j;
                end
             end
         end
-        predictions{i} = emolab2str(currentClassificationIndex);
+        predictions(i, 1) = currentClassificationIndex;
+        %predictions{i} = emolab2str(currentClassificationIndex);
     end
 end
 
