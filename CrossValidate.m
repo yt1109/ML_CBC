@@ -3,17 +3,12 @@ function [ ClassificationResults ] = CrossValidate( examples, labels, kFold)
     confusionMatrix = zeros(6);
     
     % generates indices for folds where each column is one test set
-    indices = GenerateIndices(kFold, size(examples,1));
+    Indices = GenerateIndices(kFold, size(examples,1));
     
     for k = 1:kFold
-        
-        % split test and training indices
-        test = indices(:,k);
-        training = setdiff(indices,test);
-        
-        % remove zeros from indices
-        test = test(test~=0);
-        training = training(training~=0);
+
+        test = Indices.test{k};
+        training = Indices.training{k};
        
         trainingLabels = labels(training,:);
         trainingSet = examples(training,:);

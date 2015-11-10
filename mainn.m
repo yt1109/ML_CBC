@@ -4,6 +4,9 @@ noisyData = load('noisydata_students.mat');
 CleanClassificationResults = CrossValidate(cleanData.x, cleanData.y, 10);
 NoisyClassificationResults = CrossValidate(noisyData.x, noisyData.y, 10);
 
+%pruning_example(cleanData.x, cleanData.y);
+%pruning_example(noisyData.x, noisyData.y);
+
 % Create 6 binary targets
 bTargets = cell(6);
 for i = 1:6
