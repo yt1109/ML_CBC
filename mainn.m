@@ -27,9 +27,9 @@ for i=1:nAttributes
     %DrawDecisionTree(trees{i});  
 end
 
-%save('TrainedTrees', trees);
-
 predictions = TestTrees(trees, cleanData.x);
 confusionMatrix = ConfusionMatrix([cleanData.y, predictions], nAttributes);
 ClassificationResults = ClassifyMatrix(confusionMatrix, nAttributes);
 %disp(predictions)
+
+save('TrainedTrees.mat', 'trees')
