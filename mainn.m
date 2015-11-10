@@ -25,7 +25,6 @@ for i=1:6
     %DrawDecisionTree(trees{i});  
 end
 
-%save('TrainedTrees', trees);
-
 predictions = TestTrees(trees, cleanData.x);
 %disp(predictions)
+save('TrainedTrees.mat', 'trees')
