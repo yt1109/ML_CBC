@@ -29,7 +29,10 @@ end
 
 predictions = TestTrees(trees, cleanData.x);
 confusionMatrix = ConfusionMatrix([cleanData.y, predictions], nAttributes);
-ClassificationResults = ClassifyMatrix(confusionMatrix, nAttributes);
+normalisedMatrix = NormaliseMatrix(confusionMatrix);
+ClassificationResults.regular = AnalyseMatrix(confusionMatrix, nAttributes);
+ClassificationResults.normalised = AnalyseMatrix(normalisedMatrix, nAttributes);
+    
 %disp(predictions)
 
 save('TrainedTrees.mat', 'trees')

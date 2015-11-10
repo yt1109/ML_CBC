@@ -3,7 +3,7 @@ function [predictions] = TestTrees( T, x2 )
 %T: a cell of 6 binary tree structures, which are the trained trees.
 %x2: matrix of examples with 45 features
 
-    predictions = double(1004);
+    %predictions = double(1004);
     %predictions = zeros(0);
     
     % Get classifications for each example using tree
@@ -34,7 +34,7 @@ function [predictions] = TestTrees( T, x2 )
                % If we have a positive classification, replace it if we
                % find a stronger positive classification
                if (classifications{i}{j}.class == 1 && currentClassification.strength < classifications{i}{j}.strength)
-                  currentClassification = classifications{i}{j}
+                  currentClassification = classifications{i}{j};
                   currentClassificationIndex = j;
                end
             else

@@ -1,4 +1,4 @@
-function [ClassificationResults] = ClassifyMatrix(confusionMatrix, nAttributes)
+function [ClassificationResults] = AnalyseMatrix(confusionMatrix, nAttributes)
     for i=1:nAttributes
         ClassificationResults.recall(i, 1) = CalculateRecall(confusionMatrix(i,:), i);
         ClassificationResults.precision(i, 1) = CalculatePrecision(confusionMatrix(:,i), i);

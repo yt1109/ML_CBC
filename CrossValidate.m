@@ -36,6 +36,8 @@ function [ ClassificationResults ] = CrossValidate( examples, labels, kFold, nAt
     end
     
     
-    ClassificationResults = ClassifyMatrix(confusionMatrix, nAttributes);
+    ClassificationResults.regular = AnalyseMatrix(confusionMatrix, nAttributes);
+    ClassificationResults.normalised = AnalyseMatrix(NormaliseMatrix(confusionMatrix), nAttributes);
+    
     
 end
