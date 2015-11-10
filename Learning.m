@@ -31,7 +31,7 @@ else
          tree = ClassNode(MajorityValue(binaryTargets), level);
          return;
       else
-         tree.kids{size(tree.kids, 1) + 1} = Learning(examplesI, attributes(attributes~=bestAttribute), bTargetsI);
+         tree.kids{size(tree.kids, 1) + 1} = createTree(examplesI, attributes(attributes~=bestAttribute), bTargetsI, level+1);
       end
    end
 end

@@ -9,9 +9,19 @@ function [predictions] = TestTrees( T, x2 )
     % Get classifications for each example using tree
     classifications = cell(size(x2, 1), size(T, 2));
     
+    %% METHOD 1 : Penalise based on depth
+    treeHeights = ones(1, size(T, 2));
+    
+    %% METHOD 2 : Relative depths
+    treeHeights = zeros(1, size(T, 2));
+    for i = 1:size(T,2)
+       treeHeights(i) = heightOfTree(T{i});
+    end
+    
+    
     for i = 1: size(x2, 1)
         for j = 1: size(T, 2)
-            classifications{i}{j} = getClassification(T{j}, x2(i,:));
+            classifications{i}{j} = getClassification(T{j}, x2(i,:), treeHeights(j));
         end
     end
     
@@ -42,7 +52,7 @@ function [predictions] = TestTrees( T, x2 )
     end
 end
 
-function [predict] = getClassification(tree, x) 
+function [predict] = getClassification(tree, x, strengthScalar) 
  % getClassification: classify an example with a single trained tree.
  % T: trained tree, a binary sturcture.
  % x: example given, a 45 x 1 vector.
@@ -55,10 +65,22 @@ function [predict] = getClassification(tree, x)
        end
    end
    % Penalise those nodes which are far down within the tree
-   predict = Classification(currentnode.class, -currentnode.level);
+   predict = Classification(currentnode.class, -currentnode.level/strengthScalar);
 end
 
 function [classification] = Classification(class, strength)
    classification.class = class;
    classification.strength = strength;
+end
+
+function [level] = heightOfTree(tree)
+   if size(tree.kids, 2) == 0
+      level = 1;
+   else
+      heights = zeros(1, size(tree.kids, 2));
+      for i = 1:size(tree.kids, 2)
+         heights(i) = heightOfTree(tree.kids{i});
+      end
+      level = 1 + max(heights);
+   end
 end
