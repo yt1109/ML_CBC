@@ -3,8 +3,8 @@ noisyData = load('noisydata_students.mat');
 
 nAttributes = 6;
 
-CleanClassificationResults = CrossValidate(cleanData.x, cleanData.y, 10, nAttributes);
-NoisyClassificationResults = CrossValidate(noisyData.x, noisyData.y, 10, nAttributes);
+CleanClassificationResults = CrossValidateTrees(cleanData.x, cleanData.y, 10, nAttributes);
+NoisyClassificationResults = CrossValidateTrees(noisyData.x, noisyData.y, 10, nAttributes);
 
 %pruning_example(cleanData.x, cleanData.y);
 %pruning_example(noisyData.x, noisyData.y);

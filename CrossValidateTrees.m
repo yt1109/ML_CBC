@@ -1,4 +1,4 @@
-function [ ClassificationResults ] = CrossValidate( examples, labels, kFold, nAttributes)
+function [ ClassificationResults ] = CrossValidateTrees( examples, labels, kFold, nAttributes)
        
     confusionMatrix = zeros(nAttributes);
     
