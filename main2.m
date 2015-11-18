@@ -25,10 +25,9 @@ trainlm
 net = train(net, x2, y2);
 %[t] = sim(net, x)
 Y = sim(net, x2);
-plot(x2, y2, x2, Y, 'r.');
+%plot(x2, y2, x2, Y, 'r.' );
 
 %predictions = testANN(net, x2);
-
 
 
 

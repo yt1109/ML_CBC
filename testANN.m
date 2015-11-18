@@ -1,10 +1,24 @@
-function predictions = testANN(net, x2);
+function predictions = testANN(net, x2)
 %{
-which takes as input a network net and the examples x2 (same format as x) 
-and produces a vector of label predictions in the format of the y vector 
-in the data provided to you. You may need to use the function provided ?NNout2labels?
-to transform the neural network output into the format used throughout this CBC.
+net = a neural network, x2 = examples x2 
+produces a vector of label predictions
 %}
-predictions = cell(0);
 
+    predictions = zeros(size(x2, 1));
+    %steps through each row of examples, and predict a label
+    for i = 1: size(x2, 1)
+        t = sim(net, x2(1, :));
+        predictions(i) = NNout2labels(t);
+    end
+end
+
+function prediction = NNout2labels(t)
+% t is the output of a feed-forwarded Neural Network 
+% predictions is the corresponding output in the format that 1 = anger, 2 = disgust etc.
+	prediction = 0;
+	for i = 1: size(t, 2)
+        if (t(i) == 1) 
+            prediction = i;
+        end
+	end
 end
