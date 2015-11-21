@@ -1,5 +1,5 @@
-function [ClassificationResults] = AnalyseMatrix(confusionMatrix, nAttributes)
-    for i=1:nAttributes
+function [ClassificationResults] = AnalyseMatrix(confusionMatrix, nClasses)
+    for i=1:nClasses
         ClassificationResults.recall(i, 1) = CalculateRecall(confusionMatrix(i,:), i);
         ClassificationResults.precision(i, 1) = CalculatePrecision(confusionMatrix(:,i), i);
         ClassificationResults.fMeasure(i, 1) = CalculateFMeasure(ClassificationResults.precision(i, 1), ClassificationResults.recall(i, 1), 1); 

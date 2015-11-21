@@ -7,10 +7,10 @@ noisyData = load('noisydata_students.mat');
 %and the number of neurons in the output layer is six neurons,
 net = feedforwardnet(5);
 %[net] = feedforwardnet([S1, S2...SNl], trainFcn)
-net.trainFcn = 'traingd';
+net.trainFcn = 'trainrp';
 net = configure(net, x2, y2);
 
-net.trainParam.epochs = 1000;
+%net.trainParam.epochs = 10000;
 net.trainParam.lr = 0.1;
 %goal,lr,lr_inc,lr_drc,mc,min_grad,show,time
 
@@ -21,7 +21,9 @@ trainlm
 - Gradient descent with momentum backpropagation (traingdm) ? Parameters: learning rate (lr), momentum constant (mc).
 - Resilient backpropagation (trainrp) ? Parameters: Increment/Decrement to weight change (delt_inc/delt_dec).
 %}
- 
+
+
+
 net = train(net, x2, y2);
 
 predictions = testANN(net, x2);
