@@ -22,7 +22,7 @@ function [ OptimalParameters ] = CrossValidateNN(x2, y2, kFold, trainingFcn)
         end    
         
         if perf < bestPerf
-            Parameters.epoch = round(mean(optimalEpoch));
+            Parameters.epochs = round(mean(optimalEpoch));
             OptimalParameters = Parameters;
         end
         
