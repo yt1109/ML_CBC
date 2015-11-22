@@ -11,7 +11,7 @@ function [ OptimalParameters ] = CrossValidateNN(x2, y2, kFold, trainingFcn)
         % generate optimal param configuration per fold
         Parameters = OptimiseParameters(x2, y2, trainingFcn, Indices.training{i}, Indices.test{i}, []);
         
-        optimalEpoch = zeros(kFold);
+        optimalEpoch = zeros(kFold, 1);
         % crossfold param configuration to get total perforamnce of param
         % configuration
         for testFold=1:kFold

@@ -6,7 +6,7 @@ cleanData = load('cleandata_students.mat');
 deepness = 40;
 
 PlotTopoGraph(deepness, 'traingd', x2, y2);
-savefig('gdTopo');`
+savefig('gdTopo');
 
 PlotTopoGraph(deepness, 'traingda', x2, y2);
 savefig('gdaTopo');
