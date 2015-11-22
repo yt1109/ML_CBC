@@ -1,4 +1,3 @@
-function trainNetwork
 
 cleanData = load('cleandata_students.mat');
 
@@ -13,4 +12,3 @@ net = ConfigureTrainingParams(net, OptimalParameters);
 net.trainParam.showWindow = true;
 train(net, x2, y2);
 
-end
