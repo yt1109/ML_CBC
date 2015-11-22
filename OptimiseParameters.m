@@ -2,6 +2,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
     
     bestPerf = 1;
  
+    
     switch trainingFcn
         case 'traingd'
         
@@ -14,7 +15,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
             Parameters.npl = 1;
             Parameters.delt_inc = 1.2;
             Parameters.delt_dec = 0.5;
-            for i=15:25
+            for i=1:5
                 for j=1:5
                     net = SetupNet('trainrp', i, j, x2, y2, trainIndex, valIndex, testIndex);
                     for delt_inc=1.1:0.01:1.3
@@ -24,6 +25,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
                             [~,tr] = train(net, x2, y2);
                             if tr.best_vperf < bestPerf
                                 bestPerf = tr.vperf;
+                      
                                 Parameters.layers = i;
                                 Parameters.npl = j;
                                 Parameters.delt_inc = delt_inc;
