@@ -8,7 +8,7 @@ function [ net ] = SetupNet(trainingFcn, layers, npl, x2, y2, trainIndex, valInd
             net.divideParam.trainInd = trainIndex;
             net.divideParam.valInd = valIndex;
             net.divideParam.testInd = testIndex;
-            net.trainParam.epochs = 100;
+            %net.trainParam.epochs = 100;
             net.trainParam.showWindow = false;
             net.trainParam.showCommandLine = false;
    

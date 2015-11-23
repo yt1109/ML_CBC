@@ -14,6 +14,11 @@ net = ConfigureTrainingParams(net, OptimalParameters, trainingFcn);
 
 
 net.trainParam.showWindow = true;
-train(net, x2, y2);
+net = train(net, x2, y2);
 
 
+
+
+matrix = ConfusionMatrix([cleanData.y, testANN(net, x2)], 6);
+
+classR = AnalyseMatrix(matrix, 6);

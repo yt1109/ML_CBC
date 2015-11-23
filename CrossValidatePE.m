@@ -39,8 +39,8 @@ function [cleanMatrix, noisyMatrix] = CrossValidatePE(trainingFcn, x2, y2, xn2, 
         cleanNet = SetupNet(trainingFcn, Parameters.layers, Parameters.npl, x2, y2, CleanIndices.training{i}, cleanValidationSets{i}, CleanIndices.test{i});
         noisyNet = SetupNet(trainingFcn, Parameters.layers, Parameters.npl, xn2, yn2, NoisyIndices.training{i}, noisyValidationSets{i}, NoisyIndices.test{i});
         
-        [~,ctr] = train(cleanNet, x2, y2);
-        [~,ntr] = train(noisyNet, xn2, yn2);
+        [cleanNet,ctr] = train(cleanNet, x2, y2);
+        [noisyNet,ntr] = train(noisyNet, xn2, yn2);
         
         cleanPerformance = cleanPerformance + (1 - ctr.best_tperf);
         noisyPerformance = noisyPerformance + (1 - ntr.best_tperf);
