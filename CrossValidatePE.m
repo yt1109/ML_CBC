@@ -1,4 +1,4 @@
-function [cleanMatrix, noisyMatrix] = CrossValidatePE(trainingFcn, x2, y2, xn2, yn2, kFold, nClasses)
+function [cleanMatrix, noisyMatrix, cleanPerformance, noisyPerformance] = CrossValidatePE(trainingFcn, x2, y2, xn2, yn2, kFold, nClasses)
 
 
     cleanMatrix = zeros(nClasses);
@@ -37,7 +37,9 @@ function [cleanMatrix, noisyMatrix] = CrossValidatePE(trainingFcn, x2, y2, xn2, 
         Parameters = OptimiseParameters(x2, y2, trainingFcn, CleanIndices.training{i}, cleanValidationSets{i}, CleanIndices.test{i});
         
         cleanNet = SetupNet(trainingFcn, Parameters.layers, Parameters.npl, x2, y2, CleanIndices.training{i}, cleanValidationSets{i}, CleanIndices.test{i});
+        cleanNet = ConfigureTrainingParams(cleanNet, Parameters, trainingFcn);
         noisyNet = SetupNet(trainingFcn, Parameters.layers, Parameters.npl, xn2, yn2, NoisyIndices.training{i}, noisyValidationSets{i}, NoisyIndices.test{i});
+        noisyNet = ConfigureTrainingParams(noisyNet, Parameters, trainingFcn);
         
         [cleanNet,ctr] = train(cleanNet, x2, y2);
         [noisyNet,ntr] = train(noisyNet, xn2, yn2);
@@ -55,6 +57,6 @@ function [cleanMatrix, noisyMatrix] = CrossValidatePE(trainingFcn, x2, y2, xn2, 
     cleanPerformance = cleanPerformance/kFold;
     noisyPerformance = noisyPerformance/kFold;
     
-    save CrossValidatePE.mat cleanPerformance noisyPerformance;
+    %save CrossValidatePE.mat cleanPerformance noisyPerformance;
     
 end

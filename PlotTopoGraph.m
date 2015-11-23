@@ -17,12 +17,14 @@ function [fig] = PlotTopoGraph(n, trainingFcn, x2, y2)
 
        end
     end
+    
+    filename = strcat(trainingFcn, '_Topo');
 
     mesh( X, Y, Z);
     xlabel('Layers');
     ylabel('Neurons/Layer');
     zlabel('Performance');
     
-    fig = gcf;
+    saveas(gcf, filename, 'png');
 
 end
