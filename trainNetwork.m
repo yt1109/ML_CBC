@@ -16,14 +16,23 @@ net = ConfigureTrainingParams(net, OptimalParameters, trainingFcn);
 
 
 net.trainParam.showWindow = true;
-net = train(net, x2, y2);
+
+bestMatrix = zeros(nclasses);
+bestCRate = 0;
+bestNet = net;
+for i=1:100
+    trainedNet = train(net, x2, y2);
+    matrix = ConfusionMatrix([cleanData.y, testANN(trainedNet, x2)], nClasses);
+    classificationRate = sum(diag(matrix)) / sum(sum(matrix));
+    if classificationRate > bestCRate
+        bestMatrix = matrix;
+        bestNet = trainedNet;
+    end
+end
 
 
 
-
-matrix = ConfusionMatrix([cleanData.y, testANN(net, x2)], nClasses);
-
-classR = AnalyseMatrix(matrix, nClasses);
+classR = AnalyseMatrix(bestMatrix, nClasses);
 
 
 

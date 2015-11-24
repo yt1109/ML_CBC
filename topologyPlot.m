@@ -5,20 +5,20 @@ cleanData = load('cleandata_students.mat');
 
 deepness = 40;
 
-PlotTopoGraph(deepness, 'traingd', x2, y2);
+gdTopoPerf = PlotTopoGraph(deepness, 'traingd', x2, y2);
 
 
-PlotTopoGraph(deepness, 'traingda', x2, y2);
+gdaTopoPerf = PlotTopoGraph(deepness, 'traingda', x2, y2);
 
 
-PlotTopoGraph(deepness, 'traingdm', x2, y2);
+gdmTopoPerf = PlotTopoGraph(deepness, 'traingdm', x2, y2);
 
 
-PlotTopoGraph(deepness, 'trainrp', x2, y2);
+rpTopoPerf = PlotTopoGraph(deepness, 'trainrp', x2, y2);
 
 
 
-
+save topo_perf.mat gdTopoPerf gdaTopoPerf gdmTopoPerf rpTopoPerf
 
 
 
