@@ -7,13 +7,13 @@ noisyData = load('noisydata_students.mat');
 %and the number of neurons in the output layer is six neurons,
 net = feedforwardnet(5);
 %[net] = feedforwardnet([S1, S2...SNl], trainFcn)
-net.trainFcn = 'traingd';
+net.trainFcn = 'trainrp';
 net = configure(net, x2, y2);
-%[net] = configure(net, x, y)
-net.trainParam.epochs = 100;
+
+%net.trainParam.epochs = 10000;
 net.trainParam.lr = 0.1;
 %goal,lr,lr_inc,lr_drc,mc,min_grad,show,time
-%[net] = train(net, x, y)
+
 %{
 trainlm
 - Gradient descent backpropagation (traingd) ? Parameter: learning rate (lr).
@@ -22,13 +22,15 @@ trainlm
 - Resilient backpropagation (trainrp) ? Parameters: Increment/Decrement to weight change (delt_inc/delt_dec).
 %}
 
+
+
 net = train(net, x2, y2);
-%[t] = sim(net, x)
-Y = sim(net, x2);
-plot(x2, y2, x2, Y, 'r.');
+
+predictions = testANN(net, x2);
+%plot(x2, y2, x2, Y, 'r.' );
+
 
 %predictions = testANN(net, x2);
-
 
 
 
