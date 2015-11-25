@@ -16,6 +16,7 @@ function [ OptimalParameters ] = CrossValidateNN(x2, y2, kFold, trainingFcn)
         % configuration
         for testFold=1:kFold
             net = SetupNet(trainingFcn, Parameters.layers, Parameters.npl, x2, y2, Indices.training{testFold}, Indices.test{testFold}, []);
+            net = ConfigureTrainingParams(net, Parameters, trainingFcn);
             [~,tr] = train(net, x2, y2);
             optimalEpoch(testFold) = tr.best_epoch;
             perf = perf + tr.best_vperf;
