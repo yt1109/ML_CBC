@@ -17,7 +17,7 @@ net = ConfigureTrainingParams(net, OptimalParameters, trainingFcn);
 
 net.trainParam.showWindow = true;
 
-bestMatrix = zeros(nclasses);
+bestMatrix = zeros(nClasses);
 bestCRate = 0;
 bestNet = net;
 for i=1:100

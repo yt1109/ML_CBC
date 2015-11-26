@@ -13,9 +13,11 @@ function [cleanMatrix, noisyMatrix, cleanPerformance, noisyPerformance] = CrossV
     cleanValidationSets = cell(1);
     noisyValidationSets = cell(1);
     
+    
+    
     for i=1:kFold
-        cleanValidationSets{i} = CleanIndices.training{i}(1:foldSize);
-        noisyValidationSets{i} = NoisyIndices.training{i}(1:foldSize);
+        cleanValidationSets{i} = CleanIndices.training{i}(randperm(size(CleanIndices.training{i}, 1), foldSize));
+        noisyValidationSets{i} = NoisyIndices.training{i}(randperm(size(NoisyIndices.training{i}, 1), foldSize));
         CleanIndices.training{i} = setdiff(CleanIndices.training{i}, cleanValidationSets{i});
         NoisyIndices.training{i} = setdiff(NoisyIndices.training{i}, noisyValidationSets{i});
     end
