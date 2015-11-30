@@ -16,7 +16,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
                             net.trainParam.lr = lr;
                             [~,tr] = train(net, x2, y2);
                             if tr.best_vperf < bestPerf
-                                bestPerf = tr.vperf;
+                                bestPerf = tr.best_vperf;
                       
                                 Parameters.layers = layers;
                                 Parameters.npl = npl;
@@ -42,7 +42,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
                                 net.trainParam.lr_dec = lr_dec;
                                 [~,tr] = train(net, x2, y2);
                                 if tr.best_vperf < bestPerf
-                                    bestPerf = tr.vperf;
+                                    bestPerf = tr.best_vperf;
 
                                     Parameters.layers = layers;
                                     Parameters.npl = npl;
@@ -69,7 +69,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
                             net.trainParam.mc = mc;
                             [~,tr] = train(net, x2, y2);
                             if tr.best_vperf < bestPerf
-                                bestPerf = tr.vperf;
+                                bestPerf = tr.best_vperf;
                       
                                 Parameters.layers = layers;
                                 Parameters.npl = npl;
@@ -95,7 +95,7 @@ function [Parameters] = OptimiseParameters(x2, y2, trainingFcn, trainIndex, valI
                             net.trainParam.delt_dec = delt_dec;
                             [~,tr] = train(net, x2, y2);
                             if tr.best_vperf < bestPerf
-                                bestPerf = tr.vperf;
+                                bestPerf = tr.best_vperf;
                       
                                 Parameters.layers = layers;
                                 Parameters.npl = npl;

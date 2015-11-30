@@ -7,7 +7,7 @@ noisyData = load('noisydata_students.mat');
 nClasses = 6;
 kFold = 10;
 trainingFcn = 'trainrp';
-filename = strcat('PartVII_comparison_', trainingFcn);
+filename = strcat('latest_PartVII_comparison_', trainingFcn);
 
 [cleanMatrix, noisyMatrix, cleanPerformance, noisyPerformance] = CrossValidatePE(trainingFcn, x2, y2, xn2, yn2, kFold, nClasses);
 
