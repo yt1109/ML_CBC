@@ -1,4 +1,4 @@
-OptimalNN = load('trainrp_Networkx');
+OptimalNN = load('trainrp_Network_latest');
 cleanData = load('cleandata_students.mat');
 noisyData = load('noisydata_students.mat');
 
